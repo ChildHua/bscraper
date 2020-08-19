@@ -1,0 +1,11 @@
+version: '3'
+services:
+  webapp:
+    build: 
+      context: ./
+    # image: golang:1.14.7-alpine
+    volumes:
+      - /d/learn/docker/go-scrapy:/web/app
+    ports:
+      - "8000:8080"
+    command: go run /web/app/main.go

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<style>
+    .box-card {
+        width: 400px;
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <!-- import CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+</head>
+<body>
+<div id="app">
+
+    <el-row el-row type="flex" class="row-bg" justify="space-around">
+        <el-col v-for="(v,n) in keywordsData">
+            <div>
+                <el-card class="box-card">
+                    <div slot="header" class="clearfix">
+                        <span>{{n}}</span>
+                    </div>
+                    <el-table
+                            :data="v"
+                            stripe
+                            style="width: 100%">
+                        <el-table-column
+                                type="index"
+                                width="50">
+                        </el-table-column>
+                        <el-table-column
+                                width="360"
+                        >
+                            <template scope="scope">
+                                <a :href="scope.row.link">{{scope.row.name}}</a>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+
+                </el-card>
+            </div>
+        </el-col>
+    </el-row>
+</div>
+
+</body>
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+<script>
+    var searchData = JSON.parse({[{.jsond}]})
+    new Vue({
+        el: '#app',
+        data: function () {
+            return {
+                visible: false,
+                keywordsData: searchData,
+            }
+        },
+        methods: {
+            formatter(row) {
+                return "<a></a>"
+                //return `<a href="${row.link}">${row.name}</a>`
+            }
+        }
+    })
+</script>
+</html>
