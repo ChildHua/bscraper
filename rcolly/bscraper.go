@@ -33,7 +33,7 @@ func Scrap(w string) ([]DM, error) {
 		fmt.Println("Visiting", r.URL.String())
 	})
 
-	for i := 0; i < 1; i++ {
+	for i := 0; i < 10; i++ {
 		// Start scraping on https://hackerspaces.org
 		vlink := fmt.Sprintf("http://www.baidu.com/s?rtt=1&bsst=1&cl=2&tn=news&word=%v&usm=3&rsv_idx=2&rsv_page=1&pn=%v", w, i*10)
 		e := c.Visit(vlink)

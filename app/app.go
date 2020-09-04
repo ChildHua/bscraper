@@ -61,11 +61,14 @@ func scrap(v string) {
 	// res[v] = d
 	djson, _ := json.Marshal(d)
 	newM := bson.M{"key": v, "date": utils.TimeToDateStr(time.Now())}
-	_, err := crapMap.ReplaceOne(ctx, newM, newM)
+	// _, err := crapMap.ReplaceOne(ctx, newM, newM)
+	_, err := crapMap.DeleteOne(ctx, newM)
+	_, err = crapMap.InsertOne(ctx, newM)
 	if err != nil {
 		sugarLogger.Panicf("mongo err: %v", err.Error())
 	}
-	_, err = crapData.ReplaceOne(ctx, newM, bson.M{"key": v, "date": utils.TimeToDateStr(time.Now()), "data": string(djson)})
+	_, err = crapData.DeleteOne(ctx, newM)
+	_, err = crapData.InsertOne(ctx, bson.M{"key": v, "date": utils.TimeToDateStr(time.Now()), "data": string(djson)})
 	if err != nil {
 		sugarLogger.Panicf("mongo err: %v", err.Error())
 	}
