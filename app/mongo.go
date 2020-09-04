@@ -10,7 +10,7 @@ import (
 
 func MongoInit() {
 	var err error
-	Mongo, err = mongo.NewClient(options.Client().ApplyURI("mongodb://localhost:27017"))
+	Mongo, err = mongo.NewClient(options.Client().ApplyURI("mongodb://localhost:27077"))
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 	err = Mongo.Connect(ctx)
