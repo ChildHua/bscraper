@@ -19,7 +19,7 @@ var KS []string
 var sugarLogger *zap.SugaredLogger
 
 func init() {
-	KS = []string{"碧桂园", "万科"}
+	KS = []string{"碧桂园", "万科", "保利", "金科"}
 	MongoInit()
 	InitLogger()
 }
