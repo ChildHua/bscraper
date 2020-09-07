@@ -18,8 +18,10 @@
             <h1>{{key}}-{{date}}</h1>
         </el-header>
         <el-main>
+            <el-button @click="exportExcel(key,date)">导出</el-button>
             <el-table
                     :data="data"
+                    id="detail"
                     stripe
                     style="width: 100%">
                 <el-table-column
@@ -39,6 +41,7 @@
 </div>
 
 </body>
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/1.10.0/jquery.min.js"></script>
 <!-- import Vue before Element -->
 <script src="https://unpkg.com/vue/dist/vue.js"></script>
 <!-- import JavaScript -->
@@ -60,8 +63,38 @@
             formatter(row) {
                 return "<a></a>"
                 //return `<a href="${row.link}">${row.name}</a>`
+            },
+            exportExcel(k,d){
+                tableToExcel("detail",k+d)
             }
         }
     })
+
+    function tableToExcel(tableID, fileName) {
+        var excelContent = $("#" + tableID).html();
+        var uri = 'data:application/vnd.ms-excel;base64,',
+            fileName = fileName || 'excelexport',
+            template = '<html xmlns:o="urn:schemas-microsoft-com:office:office" xmlns:x="urn:schemas-microsoft-com:office:excel" xmlns="http://www.w3.org/TR/REC-html40"><head><meta name="renderer" content="webkit"><!--[if gte mso 9]><xml><x:ExcelWorkbook><x:ExcelWorksheets><x:ExcelWorksheet><x:Name>{worksheet}</x:Name><x:WorksheetOptions><x:DisplayGridlines/></x:WorksheetOptions></x:ExcelWorksheet></x:ExcelWorksheets></x:ExcelWorkbook></xml><![endif]--></head><body><table>{table}</table></body></html>';
+        var ctx = {worksheet:'Worksheet', table: excelContent};
+        var a = document.createElement('a');
+        document.body.appendChild(a);
+        a.hreflang = 'zh';
+        a.charset = 'utf8';
+        a.type="application/vnd.ms-excel";
+        let blob = new Blob([format(template, ctx)]);
+        a.href = URL.createObjectURL(blob);
+        a.target = '_blank';
+        a.download = fileName + '.xls';
+        a.tableBorder = 1;
+        a.click();
+    }
+
+    function format(s, c) {
+        return s.replace(/{(\w+)}/g,
+            function(m, p) {
+                return c[p];
+            }
+        )
+    };
 </script>
 </html>
