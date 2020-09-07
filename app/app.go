@@ -44,6 +44,7 @@ func script() {
 			go scrap(v)
 		}
 		<-t.C
+		t.Reset(24 * time.Hour) // 重置定时器
 		sugarLogger.Info("begin crawl")
 	}
 }
