@@ -18,21 +18,27 @@
             <h1>{{key}}-{{date}}</h1>
         </el-header>
         <el-main>
-            <el-button @click="exportExcel(key,date)">导出</el-button>
             <el-table
                     :data="data"
                     id="detail"
                     stripe
-                    style="width: 100%">
+                    >
                 <el-table-column
+                        label="序号"
                         type="index"
                         width="50">
                 </el-table-column>
                 <el-table-column
-                        width="360"
+                        label="链接"
                 >
                     <template scope="scope">
                         <a :href="scope.row.link">{{scope.row.name}}</a>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                        align="right">
+                    <template slot="header" slot-scope="scope">
+                        <el-button @click="exportExcel(key,date)">导出</el-button>
                     </template>
                 </el-table-column>
             </el-table>

@@ -20,7 +20,7 @@
             <el-container v-for="(v,n) in key">
                 <el-header>{{v}}</el-header>
                 <el-main>
-                    <el-col :span="4" v-for="(d,i) in mapData[v]">
+                    <el-col  v-for="(d,i) in reverseMap(mapData[v])" style="width: 130px;float: left;padding: 10px">
                         <el-button :k="v" :d="d" @click="open(v,d)" type="info">
                             {{d}}
                         </el-button>
@@ -56,6 +56,9 @@
         methods: {
             open:function (key,date) {
                 window.open(`/detail/${key},${date}`,"_blank")
+            },
+            reverseMap(map){
+                return map.reverse()
             }
         }
     })
